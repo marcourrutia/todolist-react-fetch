@@ -20,21 +20,37 @@ export const ToDoList = () => {
     getList();
   }, []);
   console.log(list);
+  const postList = (task) => {
+    fetch("https://playground.4geeks.com/todo/users/devMarco", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: {
+        label: task,
+        is_done: false,
+      },
+    })
+      /* .then((response) => response.json())
+      .then((data) => setList(data.todos)) */
+      .catch((error) => console.log(error));
+  };
 
-  /* const handleOnChange = (event) => {
+  const handleOnChange = (event) => {
     setInputText(event.target.value);
   };
   const handleOnKeyDown = (event) => {
     if (event.keyCode === 13 && inputText !== "") {
-      setList((prevList) => [...prevList, inputText]);
+      postList(inputText);
       setInputText("");
     }
   };
   const removeItem = (indice) => {
-    setList((prevList) => prevList.filter((_, i) => i !== indice));
-  }; */
+    /* setList((prevList) => prevList.filter((_, i) => i !== indice)); */
+    console.log(indice);
+  };
 
-  /* return (
+  return (
     <>
       <h1>MIS TAREAS</h1>
       <div className="container">
@@ -47,8 +63,8 @@ export const ToDoList = () => {
         <ul id="list">
           {list.map((item, index) => (
             <li key={index}>
-              {item}
-              <button id="removeBtn" onClick={() => removeItem(index)}>
+              {item.label}
+              <button id="removeBtn" onClick={() => removeItem(item.id)}>
                 x
               </button>
             </li>
@@ -57,5 +73,5 @@ export const ToDoList = () => {
         <p>Tareas pendientes: {list.length}</p>
       </div>
     </>
-  ); */
+  );
 };
