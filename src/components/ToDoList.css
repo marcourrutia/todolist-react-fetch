@@ -4,6 +4,7 @@ h1 {
 }
 
 .container {
+  margin: 0 auto;
   background-color: #0f172b;
   width: 30%;
   padding: 20px 10px 10px 10px;
