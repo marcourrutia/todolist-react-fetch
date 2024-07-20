@@ -1,0 +1,76 @@
+h1 {
+  color: #dde6f3;
+  font-family: monospace;
+}
+
+.container {
+  background-color: #0f172b;
+  width: 30%;
+  padding: 20px 10px 10px 10px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 25px rgb(4, 2, 34);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  margin-top: 10px;
+  font-family: monospace;
+  font-size: 20px;
+  color: #4c576a;
+  width: 90%;
+  padding: 10px;
+  background-color: transparent;
+  border: 1px solid #4c576a;
+  border-radius: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  width: 90%;
+  margin: 0 0 10px 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 2px;
+  border: 1px solid #788190;
+  font-family: monospace;
+  color: #788190;
+  font-size: 18px;
+  padding: 1px 30px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+li:hover {
+  background-color: #0000ff3a;
+}
+
+#removeBtn {
+  background-color: transparent;
+  border-style: none;
+  color: #78819018;
+  font-family: monospace;
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#removeBtn:hover {
+  color: #788190;
+}
+
+p {
+  font-family: monospace;
+  font-size: 13px;
+  color: #dde6f3;
+  align-self: flex-start;
+  margin-left: 25px;
+}
