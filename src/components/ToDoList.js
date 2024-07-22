@@ -14,26 +14,40 @@ export const ToDoList = () => {
     })
       .then((response) => response.json())
       .then((data) => setList(data.todos))
-      .catch((error) => console.log(error));
+      .catch((error) => alert(error));
   };
   useEffect(() => {
     getList();
   }, []);
-  console.log(list);
   const postList = (task) => {
-    fetch("https://playground.4geeks.com/todo/users/devMarco", {
+    const newTask = { label: task, is_done: false };
+    setList([...list, newTask]);
+    fetch("https://playground.4geeks.com/todo/todos/devMarco", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
-        label: task,
-        is_done: false,
-      },
+      body: JSON.stringify(newTask),
     })
-      /* .then((response) => response.json())
-      .then((data) => setList(data.todos)) */
-      .catch((error) => console.log(error));
+      .then((response) => {
+        if (response.ok) getList();
+      })
+      .catch((error) => {
+        alert(error);
+        setList(list.filter((item) => item !== newTask));
+      });
+  };
+  const deleteList = (id) => {
+    setList(list.filter((item) => item.id !== id));
+    fetch("https://playground.4geeks.com/todo/todos/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).catch((error) => {
+      alert(error);
+      getList();
+    });
   };
 
   const handleOnChange = (event) => {
@@ -44,10 +58,6 @@ export const ToDoList = () => {
       postList(inputText);
       setInputText("");
     }
-  };
-  const removeItem = (indice) => {
-    /* setList((prevList) => prevList.filter((_, i) => i !== indice)); */
-    console.log(indice);
   };
 
   return (
@@ -64,7 +74,7 @@ export const ToDoList = () => {
           {list.map((item, index) => (
             <li key={index}>
               {item.label}
-              <button id="removeBtn" onClick={() => removeItem(item.id)}>
+              <button id="removeBtn" onClick={() => deleteList(item.id)}>
                 x
               </button>
             </li>
