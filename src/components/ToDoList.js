@@ -47,20 +47,26 @@ export const ToDoList = () => {
       getList();
     });
   };
-
-  const deleteAll = () => {
+  const deleteAll = async () => {
     setList([]);
-    fetch("https://playground.4geeks.com/todo/users/devMarco/", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .catch((error) => {
-        alert(error);
-        getList();
-      })
-      .finally(() => getList());
+    try {
+      const deletePromises = list.map((item) =>
+        fetch("https://playground.4geeks.com/todo/todos/" + item.id, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).catch((error) => {
+          alert(error);
+          getList();
+        })
+      );
+      await Promise.all(deletePromises);      
+      getList();
+    } catch (error) {
+      alert(error);
+      getList();
+    }
   };
 
   const handleOnChange = (event) => {
