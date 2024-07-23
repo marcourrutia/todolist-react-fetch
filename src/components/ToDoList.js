@@ -47,6 +47,7 @@ export const ToDoList = () => {
       getList();
     });
   };
+  /* Función asincrona para que el llamado a la función getList se haga una vez finalizadas todas las promesas de deletePromises */
   const deleteAll = async () => {
     setList([]);
     try {
