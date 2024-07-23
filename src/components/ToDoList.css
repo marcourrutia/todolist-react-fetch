@@ -75,3 +75,20 @@ p {
   align-self: flex-start;
   margin-left: 25px;
 }
+
+#removeAll {
+  background-color: transparent;
+  margin: 15px 2px;
+  border: 1px solid #788190;
+  font-family: monospace;
+  color: #788190;
+  font-size: 18px;
+  padding: 8px 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+#removeAll:hover {
+  cursor: pointer;
+  background-color: #0000ff3a;
+}

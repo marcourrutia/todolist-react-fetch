@@ -29,13 +29,11 @@ export const ToDoList = () => {
       },
       body: JSON.stringify(newTask),
     })
-      .then((response) => {
-        if (response.ok) getList();
-      })
       .catch((error) => {
         alert(error);
         setList(list.filter((item) => item !== newTask));
-      });
+      })
+      .finally(() => getList());
   };
   const deleteList = (id) => {
     setList(list.filter((item) => item.id !== id));
@@ -48,6 +46,21 @@ export const ToDoList = () => {
       alert(error);
       getList();
     });
+  };
+
+  const deleteAll = () => {
+    setList([]);
+    fetch("https://playground.4geeks.com/todo/users/devMarco/", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .catch((error) => {
+        alert(error);
+        getList();
+      })
+      .finally(() => getList());
   };
 
   const handleOnChange = (event) => {
@@ -71,7 +84,7 @@ export const ToDoList = () => {
           value={inputText}
         />
         <ul id="list">
-          {list.map((item, index) => (
+          {list?.map((item, index) => (
             <li key={index}>
               {item.label}
               <button id="removeBtn" onClick={() => deleteList(item.id)}>
@@ -80,7 +93,14 @@ export const ToDoList = () => {
             </li>
           ))}
         </ul>
-        <p>Tareas pendientes: {list.length}</p>
+        {list && list.length > 0 ? (
+          <p>Tareas pendientes: {list.length}</p>
+        ) : null}
+        {list && list.length > 1 ? (
+          <button id="removeAll" onClick={deleteAll}>
+            Eliminar todo
+          </button>
+        ) : null}
       </div>
     </>
   );
